@@ -32,7 +32,15 @@ export const AVAILABLE_EVENTS = [
     // GROUPNAME: Members
     {event: 'member.added', name: 'Member added', group: 'Members'},
     {event: 'member.edited', name: 'Member updated', group: 'Members'},
-    {event: 'member.deleted', name: 'Member deleted', group: 'Members'}
+    {event: 'member.deleted', name: 'Member deleted', group: 'Members'},
+
+    // GROUPNAME: Users
+    {event: 'user.deactivated', name: 'User deactivated', group: 'Users'},
+    {event: 'user.deleted', name: 'User deleted', group: 'Users'},
+    {event: 'user.added', name: 'User added', group: 'Users'},
+    {event: 'user.activated', name: 'User activated', group: 'Users'},
+    {event: 'user.activated.edited', name: 'User activated.edited', group: 'Users'},
+    {event: 'user.edited', name: 'User edited', group: 'Users'}
 ];
 
 export function eventName([event]/*, hash*/) {
