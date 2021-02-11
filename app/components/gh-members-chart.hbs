@@ -3,9 +3,9 @@
 >
 
     {{!-- Chart title/filter graph --}}
-    <div class="flex-auto bg-white br3 shadow-1 bg-grouped-table mr6 gh-members-chart-box">
-        <div class="flex justify-between items-center gh-members-chart-header">
-            <h2 class="f-small ttu midgrey fw5 mb0">Total members</h2>
+    <div class="gh-members-chart-box">
+        <div class="gh-members-chart-header">
+            <h2 class="gh-heading-xs">Total members</h2>
             <div class="view-actions">
                 <div class="gh-contentfilter gh-contentfilter-menu gh-contentfilter-type">
                     <PowerSelect
@@ -36,29 +36,29 @@
                     @height={{300}} />
             {{/if}}
         </div>
-        <div class="flex justify-between pa4 pt0 pb2 nt1">
-            <span class="f8 midlightgrey">{{this.startDateLabel}}</span>
-            <span class="f8 midlightgrey">Today</span>
+        <div class="gh-members-chart-xlabels">
+            <span>{{this.startDateLabel}}</span>
+            <span>Today</span>
         </div>
     </div>
 
     {{!-- Summary --}}
-    <div class="flex flex-column justify-between gh-members-chart-summary bg-white br3 shadow-1 bg-grouped-table">
-        <div class="flex-auto flex flex-column justify-center items-start pa4 bb b--whitegrey">
-            <h3 class="f-small ttu midgrey fw5">Total Members</h3>
-            <div class="gh-members-chart-summary-data">{{if (not this.stats) "-" (format-number this.stats.total)}}</div>
-        </div>
-        <div class="flex-auto flex flex-column justify-center items-start pa4 bb b--whitegrey">
+    <div class="gh-content-box vertical gh-members-chart-summary">
+        <section>
+            <h3 class="gh-heading-xs">Total Members</h3>
+            <div class="gh-data-summary">{{if (not this.stats) "-" (format-number this.stats.total)}}</div>
+        </section>
+        <section>
             {{#if (eq this.selectedRange.days "all-time")}}
-                <h3 class="f-small ttu midgrey fw5">All time signups</h3>
+                <h3 class="gh-heading-xs">All time signups</h3>
             {{else}}
-                <h3 class="f-small ttu midgrey fw5">Signed up in the last {{this.selectedRange.days}} days</h3>
+                <h3 class="gh-heading-xs">Signed up in the last {{this.selectedRange.days}} days</h3>
             {{/if}}
-            <div class="gh-members-chart-summary-data">{{if (not this.stats) "-" (format-number this.stats.total_in_range)}}</div>
-        </div>
-        <div class="flex-auto flex flex-column justify-center items-start pa4">
-            <h3 class="f-small ttu midgrey fw5">Signed up today</h3>
-            <div class="gh-members-chart-summary-data">{{if (not this.stats) "-" (format-number this.stats.new_today)}}</div>
-        </div>
+            <div class="gh-data-summary">{{if (not this.stats) "-" (format-number this.stats.total_in_range)}}</div>
+        </section>
+        <section>
+            <h3 class="gh-heading-xs">Signed up today</h3>
+            <div class="gh-data-summary">{{if (not this.stats) "-" (format-number this.stats.new_today)}}</div>
+        </section>
     </div>
 </div>

@@ -101,11 +101,11 @@ export default Component.extend({
                 cubicInterpolationMode: 'monotone',
                 data: dateValues,
                 fill: false,
-                backgroundColor: 'rgba(62,176,239,.9)',
+                backgroundColor: '#45C32E',
                 pointRadius: 0,
                 pointHitRadius: 10,
-                borderColor: 'rgba(62,176,239,.9)',
-                borderJoinStyle: 'round'
+                borderColor: '#45C32E',
+                borderJoinStyle: 'miter'
             }]
         });
     },
@@ -133,7 +133,7 @@ export default Component.extend({
                 intersect: false,
                 mode: 'index',
                 displayColors: false,
-                backgroundColor: '#343f44',
+                backgroundColor: '#15171A',
                 xPadding: 7,
                 yPadding: 7,
                 cornerRadius: 5,
@@ -165,8 +165,8 @@ export default Component.extend({
                     labelString: 'Date',
                     gridLines: {
                         drawTicks: false,
-                        color: (this.nightShift ? '#333F44' : '#E5EFF5'),
-                        zeroLineColor: (this.nightShift ? '#333F44' : '#E5EFF5')
+                        color: (this.nightShift ? '#333F44' : '#DDE1E5'),
+                        zeroLineColor: (this.nightShift ? '#333F44' : '#DDE1E5')
                     },
                     ticks: {
                         display: false,
@@ -174,6 +174,7 @@ export default Component.extend({
                         minRotation: 0,
                         padding: 6,
                         autoSkip: false,
+                        fontColor: '#626D79',
                         maxTicksLimit: 10,
                         callback: function (value, index, values) {
                             let step = (values.length - 1) / (maxTicksAllowed);
@@ -203,7 +204,7 @@ export default Component.extend({
                     },
                     ticks: {
                         maxTicksLimit: 5,
-                        fontColor: '#9baeb8',
+                        fontColor: '#626D79',
                         padding: 8,
                         precision: 0,
                         callback: function (value) {
@@ -244,7 +245,7 @@ export default Component.extend({
                     ctx.moveTo(x, topY);
                     ctx.lineTo(x, bottomY);
                     ctx.lineWidth = 1;
-                    ctx.strokeStyle = (this.nightShift ? 'rgba(62, 176, 239, 0.65)' : 'rgba(62, 176, 239, 0.8)');
+                    ctx.strokeStyle = (this.nightShift ? 'rgba(62, 176, 239, 0.65)' : 'rgba(62, 176, 239, 0.1)');
                     ctx.stroke();
                     ctx.restore();
                 }

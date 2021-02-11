@@ -26,7 +26,7 @@
 
             <span class="dropdown">
                 <GhDropdownButton @dropdownName="members-actions-menu"
-                    @classNames="gh-btn gh-btn-white gh-btn-icon only-has-icon gh-actions-cog" @title="Members Actions"
+                    @classNames="gh-btn gh-btn-icon only-has-icon gh-actions-cog" @title="Members Actions"
                     @data-test-user-actions="true">
                     <span>
                         {{svg-jar "settings"}}
@@ -57,14 +57,15 @@
                     </li>
                 </GhDropdown>
             </span>
-            <LinkTo @route="member.new" class="gh-btn gh-btn-green" data-test-new-member-button="true"><span>New member</span></LinkTo>
+            <LinkTo @route="member.new" class="gh-btn gh-btn-primary" data-test-new-member-button="true"><span>New member</span></LinkTo>
         </section>
     </GhCanvasHeader>
 
     {{#unless this.members.loading}}
         <section class="view-container">
+
             {{#if (and this.members this.showingAll)}}
-                <section>
+                <section class="gh-members-chart">
                     <GhMembersChart nightShift={{feature "nightShift"}} />
                 </section>
             {{/if}}

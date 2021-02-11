@@ -47,45 +47,41 @@
 .gh-contentfilter-menu-trigger:focus,
 .gh-contentfilter-menu-trigger--active {
     background: var(--white);
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     font-weight: 400;
     color: var(--darkgrey);
     letter-spacing: 0.2px;
     height: 33px;
-    padding: 5px 10px 6px 10px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 1px 2px rgba(0, 0, 0, 0.05);
+    padding: 5px 12px 6px;
+    margin-right: 8px;
     outline: none;
     border: none;
-    border-right: 1px solid var(--whitegrey-l2);
-    border-radius: 0;
+    border-radius: 2px !important;
     white-space: nowrap;
     transition: all 0.25s ease;
 }
 
 .gh-contentfilter-menu-trigger:hover {
     cursor: pointer;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.01), 0 2px 4px -1px rgba(0, 0, 0, 0.15);
     color: var(--darkgrey);
-}
-
-.gh-contentfilter-type .gh-contentfilter-menu-trigger {
-    border-top-left-radius: 4px !important;
-    border-bottom-left-radius: 4px !important;
-}
-
-.gh-contentfilter-menu:last-of-type .gh-contentfilter-menu-trigger {
-    border-top-right-radius: 4px !important;
-    border-bottom-right-radius: 4px !important;
+    background: var(--whitegrey);
 }
 
 .gh-contentfilter-selected .gh-contentfilter-menu-trigger,
 .gh-contentfilter-selected .gh-contentfilter-menu-trigger:hover {
-    color: var(--blue);
-    font-weight: 500;
+    color: var(--green);
+    font-weight: 600;
+    background: var(--whitegrey-l1);
+}
+
+.gh-canvas-header.grey .gh-contentfilter-menu-trigger,
+.gh-canvas-header.grey .gh-contentfilter-menu-trigger:focus,
+.gh-canvas-header.grey .gh-contentfilter-menu-trigger--active {
+    background: var(--main-color-content-greybg);
 }
 
 .gh-contentfilter-menu-trigger svg path {
-    stroke: color-mod(var(--midgrey) l(-7%));
+    stroke: var(--black);
 }
 
 .gh-contentfilter .ember-power-select-selected-item,
@@ -98,7 +94,7 @@
     margin-top: 6px;
     padding: 6px 0;
     border: none !important;
-    font-size: 1.3rem;
+    font-size: 1.35rem;
     box-shadow: 0 0 0 1px rgba(0,0,0,.04), 0 7px 20px -5px rgba(0,0,0,.15);
     border-radius: 5px !important;
 }
@@ -124,16 +120,18 @@
     width: 18px;
     height: 18px;
     margin: 2px 0 0;
+    color: var(--black);
 }
 
 .gh-contentfilter-actions svg g {
-    stroke: var(--middarkgrey);
+    stroke: var(--black);
 }
 
 .gh-contentfilter-button {
     display: flex;
     height: 33px;
     line-height: 33px;
+    background: color-mod(var(--whitegrey-l1) l(-3%));
 }
 
 
@@ -189,7 +187,7 @@
 
 .gh-content-entry-title {
     margin: 0 0 3px 0;
-    font-size: 1.5rem;
+    font-size: 1.6rem !important;
     font-weight: 600;
 }
 
@@ -480,6 +478,7 @@
 .no-posts {
     background: none;
     box-shadow: none;
+    border: none !important;
 }
 
 .no-posts + .infinity-loader {
@@ -494,7 +493,7 @@
     align-items: center;
     margin: 0 auto;
     padding: 0;
-    height: calc(100vh - 140px);
+    height: calc(100vh - 200px);
 }
 
 .no-posts-box .no-posts {

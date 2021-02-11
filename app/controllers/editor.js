@@ -6,6 +6,7 @@ import isNumber from 'ghost-admin/utils/isNumber';
 import moment from 'moment';
 import {action, computed} from '@ember/object';
 import {alias, mapBy} from '@ember/object/computed';
+import {capitalize} from '@ember/string';
 import {inject as controller} from '@ember/controller';
 import {get} from '@ember/object';
 import {htmlSafe} from '@ember/string';
@@ -101,6 +102,7 @@ export default Controller.extend({
     showLeaveEditorModal: false,
     showReAuthenticateModal: false,
     showEmailPreviewModal: false,
+    showPostPreviewModal: false,
     showUpgradeModal: false,
     showDeleteSnippetModal: false,
     hostLimitError: null,
@@ -272,6 +274,10 @@ export default Controller.extend({
             this.toggleProperty('showEmailPreviewModal');
         },
 
+        togglePostPreviewModal() {
+            this.toggleProperty('showPostPreviewModal');
+        },
+
         toggleReAuthenticateModal() {
             this.toggleProperty('showReAuthenticateModal');
         },
@@ -423,6 +429,7 @@ export default Controller.extend({
             post.set('statusScratch', null);
 
             if (!options.silent) {
+                this.set('showPostPreviewModal', false);
                 this._showSaveNotification(prevStatus, post.get('status'), isNew ? true : false);
             }
 
@@ -617,10 +624,8 @@ export default Controller.extend({
     // load supplementel data such as the members count in the background
     backgroundLoader: task(function* () {
         try {
-            if (this.feature.members) {
-                let membersResponse = yield this.store.query('member', {limit: 1, filter: 'subscribed:true'});
-                this.set('memberCount', get(membersResponse, 'meta.pagination.total'));
-            }
+            let membersResponse = yield this.store.query('member', {limit: 1, filter: 'subscribed:true'});
+            this.set('memberCount', get(membersResponse, 'meta.pagination.total'));
         } catch (error) {
             this.set('memberCount', 0);
         }
@@ -745,6 +750,7 @@ export default Controller.extend({
         this.set('shouldFocusEditor', false);
         this.set('leaveEditorTransition', null);
         this.set('showLeaveEditorModal', false);
+        this.set('showPostPreviewModal', false);
         this.set('infoMessage', null);
         this.set('wordCount', null);
 
@@ -860,16 +866,12 @@ export default Controller.extend({
         let actions, type, path;
 
         if (status === 'published' || status === 'scheduled') {
-            type = this.get('post.displayName') === 'page' ? 'Page' : 'Post';
+            type = capitalize(this.get('post.displayName'));
             path = this.get('post.url');
-            actions = `<a href="${path}" target="_blank">View ${type}</a>`;
-        } else {
-            type = 'Preview';
-            path = this.get('post.previewUrl');
             actions = `<a href="${path}" target="_blank">View ${type}</a>`;
         }
 
-        notifications.showNotification(message, {type: 'success', actions: actions.htmlSafe(), delayed});
+        notifications.showNotification(message, {type: 'success', actions: (actions && actions.htmlSafe()), delayed});
     },
 
     _showScheduledNotification(delayed) {

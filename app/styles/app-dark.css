@@ -39,6 +39,9 @@
 @import "components/codemirror.css";
 @import "components/lists.css";
 @import "components/tabs.css";
+@import "components/browser-preview.css";
+@import "components/stacks.css";
+@import "components/browser-preview.css";
 
 
 /* Layouts: Groups of Components
@@ -63,14 +66,29 @@
 @import "layouts/portal-settings.css";
 @import "layouts/billing.css";
 @import "layouts/fullscreen-wizard.css";
+@import "layouts/post-preview.css";
 
 
 :root {
+    /* Primary colours */
+    --black: #fafafb;
+    --white: #15171A;
+    --lime: #B5FF18;
+
     --darkgrey: #e5eff5;
-    --midgrey: #738a94;
-    --lightgrey: #333F44;
-    --dark-main-bg-color: #263238;
+    --middarkgrey: #ABB4BE;
+    --midgrey: #738296;
+    --midlightgrey:#626D79;
+    --lightgrey: #292f38;
+    --whitegrey: #222730;
     --blue: color-mod(#3eb0ef l(+5%) s(+5%));
+
+    --dark-main-bg-color: #15171A;
+    --hairline-color-1: #292f38;
+    --hairline-color-2: #626D79;
+
+    --main-color-content-greybg: color-mod(var(--whitegrey-d1) l(+0%) s(+5%));
+    --list-color-divider: var(--whitegrey-l1);
 }
 
 body {
@@ -128,12 +146,12 @@ input:focus,
 
 .settings-menu-container,
 .gh-main-white {
-    background: #212A2E;
+    background: var(--white);
 }
 
 @media (max-width: 800px) {
     .gh-mobile-nav-bar {
-        background: #212A2E;
+        background: #191b1f;
     }
 }
 
@@ -201,6 +219,7 @@ input:focus,
 
 .gh-btn:not(.gh-btn-green):not(.gh-btn-blue):not(.gh-btn-red) {
     border: color-mod(var(--darkgrey) l(-27%) blackness(+15%)) 1px solid;
+    background: var(--transparent);
 }
 
 .view-actions .gh-btn:not(.gh-btn-green):not(.gh-btn-blue):not(.gh-btn-red) {
@@ -223,10 +242,13 @@ input:focus,
     color: white;
 }
 
+.gh-btn-white {
+    background: var(--transparent);
+}
+
 .gh-btn-link {
     border: none !important;
 }
-
 
 .settings-menu-delete-button {
     color: var(--red);
@@ -287,7 +309,7 @@ input:focus,
 }
 
 .gh-publishmenu-dropdown {
-    background: #212A2E;
+    background: #191b1f;
 }
 
 .gh-image-uploader {
@@ -299,7 +321,7 @@ input:focus,
 }
 
 .gh-main > section.gh-editor-fullscreen {
-    background: color-mod(#212A2E l(+2%));
+    background: color-mod(#191b1f l(+2%));
 }
 
 .dropdown-menu {
@@ -328,7 +350,7 @@ input:focus,
 }
 
 .modal-content {
-    background: #212A2E;
+    background: #191b1f;
 }
 
 .seo-preview-title {
@@ -370,7 +392,7 @@ input:focus,
 }
 
 .gh-canvas-background {
-    background: #212a2e;
+    background: #191b1f;
 }
 
 .gh-canvas-title span path {
@@ -410,6 +432,10 @@ input:focus,
     background: var(--lightgrey);
 }
 
+.settings-menu-content .CodeMirror {
+    background: var(--extra-darkgrey);
+}
+
 .settings-menu-expanded .content-cover,
 .mobile-menu-expanded .content-cover {
     background: transparent;
@@ -422,29 +448,34 @@ input:focus,
 
 .apps-grid,
 .apps-grid-cell {
-    background: #212A2E;
+    background: #191b1f;
 }
 
 .td-cta-box {
-    background: #212A2E;
+    background: #191b1f;
 }
 
 .settings-code-editor .CodeMirror-gutters,
-.settings-code code {
-    background-color: var(--white);
+.settings-code code,
+.form-group code {
+    background-color: var(--extra-darkgrey);
+    border-right: 1px solid var(--lightgrey);
 }
 
 .settings-code-editor .CodeMirror {
-    background: var(--white);
+    color: var(--darkgrey);
 }
 
-.blog-logo,
-.blog-icon {
+.settings-code-editor .CodeMirror-cursor {
+    border-color: var(--midgrey);
+}
+
+.gh-branding-image-container.transparent-bg {
     background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Ctitle%3ERectangle%3C/title%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath fill='%23303e46' d='M0 0h24v24H0z'/%3E%3Cpath fill='%233e515b' d='M0 0h12v12H0zM12 12h12v12H12z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .id-item {
-    background: #212A2E;
+    background: #191b1f;
 }
 
 .CodeMirror .cm-spell-error:not(.cm-url):not(.cm-comment):not(.cm-tag):not(.cm-word) {
@@ -468,7 +499,7 @@ input:focus,
 }
 
 .gh-nav {
-    border-right: none;
+    border-color: var(--hairline-color-1);
 }
 
 .gh-nav-list a {
@@ -478,9 +509,21 @@ input:focus,
 .gh-nav-list a:not(.active):not(.gh-secondary-action):hover,
 .gh-nav-list .gh-secondary-action:hover span,
 .gh-nav-bottom .ember-basic-dropdown-trigger:hover,
-.gh-nav-list .active,
+.gh-nav-btn-search:hover,
+.gh-nav-list button.main-menu-item:hover,
+.gh-nav-bottom .ember-basic-dropdown-trigger:hover,
+.gh-nav-bottom-tabicon:hover,
+.gh-nav-bottom-tabicon.active,
+.gh-nav-list .gh-secondary-action:not(.icon-only):hover span {
+    background: var(--white);
+}
+
+.gh-nav-list a:not(.active):not(.gh-secondary-action):hover {
+    background: #171b1f;
+}
+
 .gh-nav-btn-search:hover {
-    background: color-mod(var(--dark-main-bg-color) l(+5%) s(-5%))
+    background: var(--lightgrey);
 }
 
 .gh-nav-list .gh-nav-nightshift span svg path {
@@ -496,8 +539,9 @@ input:focus,
 .gh-contentfilter-menu-trigger--active,
 .gh-contentfilter-menu-trigger:focus,
 .tags-container,
-.content-list ol {
-    background: #212A2E;
+.content-list ol,
+.gh-settings-main-grid {
+    background: var(--dark-main-bg-color);
 }
 
 .gh-posts-list-item:hover,
@@ -505,14 +549,43 @@ input:focus,
 .ember-power-select-group .ember-power-select-option[aria-current=true],
 .gh-list-row:not(.header):not(.loading):hover .gh-list-cell,
 .gh-list-row:not(.header):not(.loading):hover .gh-list-data,
-.settings-tag .tag-edit-button.active {
+.settings-tag .tag-edit-button.active,
+.gh-portal-site-frame-cover {
     background: color-mod(var(--dark-main-bg-color) l(-2%));
+}
+
+.gh-browserpreview-browser {
+    background: color-mod(var(--dark-main-bg-color) l(-6%));
 }
 
 .tag-settings .gh-image-uploader {
     background-color: transparent;
 }
 
+.gh-settings-main-grid .gh-setting-group span {
+    background: color-mod(var(--dark-main-bg-color) l(+2%));
+}
+
+.gh-settings-main-grid .gh-setting-group:hover span {
+    background: color-mod(var(--dark-main-bg-color) l(+4%));
+}
+
+.nightshift-toggle {
+    background: var(--black);
+}
+
+.nightshift-toggle .thumb {
+    background: var(--dark-main-bg-color);
+}
+
+.nightshift-toggle .moon svg {
+    color: var(--dark-main-bg-color);
+}
+
+.gh-tag-setting-codeinjection .CodeMirror-gutters {
+    background-color: var(--extra-darkgrey);
+    border-right: 1px solid var(--lightgrey);
+}
 
 /* Koenig styles */
 .kg-link-input {
@@ -522,31 +595,38 @@ input:focus,
 
 /* Dark style Lists */
 .gh-list {
-    background: #212A2E;
+    background: var(--dark-main-bg-color) !important;
 }
 
 .gh-list-header,
 .gh-list-row:not(.header):hover .gh-list-cell,
 .gh-list-row:not(.header):hover .gh-list-data,
 .apps-grid-cell:hover {
-    background: color-mod(var(--lightgrey) l(-9%));
+    background: var(--dark-main-bg-color);
 }
 
+.gh-list-header {
+    border-bottom: 1px solid var(--hairline-color-1);
+}
+
+.gh-list-data {
+    border-top: 1px solid var(--hairline-color-1);
+}
 
 /* Members */
 .gh-members-chart-header {
-    background: color-mod(var(--lightgrey) l(-9%));
+    background: var(--white);
 }
 .gh-members-chart-header .gh-contentfilter-type .gh-contentfilter-menu-trigger {
     box-shadow: 0 0 0 1px color-mod(var(--darkgrey) l(-27%) blackness(+15%) alpha(50%));
 }
 
 .gh-members-import-table::before {
-    background: #212A2E;
+    background: #191b1f;
 }
 
 .gh-members-import-table::after {
-    background: #212A2E;
+    background: #191b1f;
 }
 .gh-import-member-select,
 .gh-import-member-select select {
@@ -556,9 +636,28 @@ input:focus,
 .modal-fullsettings-preview-container,
 .fullscreen-modal-email-preview .gh-pe-mobile-container,
 .fullscreen-modal-email-preview .gh-pe-desktop-container {
-    background: #1D252B;
+    background: var(--dark-main-bg-color);
 }
 
 .gh-pe-mobile-bezel {
     background: #2b373e;
+}
+
+.gh-members-emailsettings-footer-input {
+    background: color-mod(var(--lightgrey));
+}
+
+/* Portal */
+.gh-portal-settings-maintabs {
+    border: 1px solid color-mod(var(--darkgrey) l(-27%) blackness(+15%));
+}
+
+.gh-portal-page-url-container {
+    color: var(--darkgrey);
+    border-color: color-mod(var(--lightgrey));
+    background: color-mod(var(--lightgrey));
+}
+
+.gh-portal-settings-maintabs li:not(:last-of-type) {
+    border-right: 1px solid color-mod(var(--darkgrey) l(-27%) blackness(+15%));
 }
